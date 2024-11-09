@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+<div>
+    <h1>欢迎来到主页</h1>
+    <p>登录用户名是：{{ username }}</p>
+    <a href="{{ url_for('logout') }}">点击这里注销</a>
+
+    <h2>请选择你要上传的文件</h2>
+    <form action="{{ url_for('uploader') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="upload_files" multiple>
+        <input type="submit" value="提交">
+    </form>
+
+    <!-- 显示上传的文件列表和下载、删除链接 -->
+    <h2>已上传的文件</h2>
+    <form action="{{ url_for('batch_action') }}" method="post">
+        <ul>
+            {% for file in files %}
+                <li style="display: flex; align-items: center;">
+                    <!-- 下载按钮 -->
+                    <a href="{{ url_for('download_file', filename=file) }}">
+                        <button type="button" style="margin-right: 10px;">下载</button>
+                    </a>
+
+                    <!-- 删除按钮 -->
+                    <a href="{{ url_for('delete_file', filename=file) }}">
+                        <button type="button" style="margin-right: 10px;">删除</button>
+                    </a>
+
+                    <!-- 文件名和选择框 -->
+                    <label>
+                        <input type="checkbox" name="selected_files" value="{{ file }}">
+                        {{ file }}
+                    </label>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- 批量操作按钮 -->
+        <button type="submit" name="action" value="download">批量下载</button>
+        <button type="submit" name="action" value="delete">批量删除</button>
+    </form>
+
+
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+</head>
+<body>
+<div style="background: lightgreen">
+    <h1>结果页面</h1>
+    {% if rst %}
+        <p>Name: {{ rst.name }}</p>
+        <p>Age: {{ rst.age }}</p>
+    {% else %}
+        <p>No data submitted.</p>
+    {% endif %}
+</div>
+
+
+<div>
+    <table border="1">
+        {% for key, value in rst.items() %}
+        <tr>
+            <th>{{ key }}</th>
+            <td>{{ value }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+</body>
+</html>

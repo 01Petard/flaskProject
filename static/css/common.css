@@ -1,0 +1,13 @@
+body {
+    background-color: lightblue;
+}
+
+h1 {
+    color: navy;
+    margin-left: 0;
+}
+
+ul, li {
+    list-style-type: none; /* 去掉点 */
+    padding-left: 0; /* 去掉左边默认的缩进 */
+}

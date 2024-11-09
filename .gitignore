@@ -91,6 +91,7 @@ docs/_build/
 *.pycharm*
 *.idea*
 .idea
+static
 
 # Jupyter Notebook
 .ipynb_checkpoints
