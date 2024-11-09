@@ -90,8 +90,9 @@ docs/_build/
 *.pydevproject
 *.pycharm*
 *.idea*
-.idea
 static
+.venv
+.idea
 
 # Jupyter Notebook
 .ipynb_checkpoints
