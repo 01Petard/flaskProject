@@ -24,4 +24,4 @@ def rest(rest):
 
 
 if __name__ == '__main__':
-    app.run(port=6000, debug=True, threaded=True)
+    app.run()

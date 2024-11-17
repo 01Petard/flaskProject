@@ -4,7 +4,7 @@ from flask import Flask, request
 app = Flask(__name__)
 
 
-def db_exectuor():
+def db_executor():
     return pymysql.connect(host='1.94.147.176',
                            user='root',
                            password='kjiolluy711',
@@ -15,7 +15,7 @@ def db_exectuor():
 
 @app.route('/users')
 def show_users():
-    connection = db_exectuor()
+    connection = db_executor()
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM tbl_user")
         result = cursor.fetchall()
@@ -24,29 +24,29 @@ def show_users():
 
 @app.route('/users/<int:user_id>')
 def show_user_by_id(user_id):
-    connection = db_exectuor()
+    connection = db_executor()
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM tbl_user WHERE user_id = %s", [user_id])
         result = cursor.fetchone()
     return result
 
 
-# @app.route('/update_user/<int:id>', methods=['GET','POST'])
-# def update_user(id):
-#     username = request.form['username']
-#     email = request.form['email']
-#     connection = db_exectuor()
-#     with connection.cursor() as cursor:
-#         sql = "UPDATE tbl_user SET user_name=%s, user_age=%s, user_gender=%s WHERE id=%s"
-#         cursor.execute(sql, (username, email, id))
-#     connection.commit()
-#     return 'User updated successfully'
-#     # return redirect(url_for('show_users'))
+@app.route('/update_user/<int:id>', methods=['GET','POST'])
+def update_user(id):
+    username = request.form['username']
+    email = request.form['email']
+    connection = db_executor()
+    with connection.cursor() as cursor:
+        sql = "UPDATE tbl_user SET user_name=%s, user_age=%s, user_gender=%s WHERE id=%s"
+        cursor.execute(sql, (username, email, id))
+    connection.commit()
+    return 'User updated successfully'
+    # return redirect(url_for('show_users'))
 
 
 @app.route('/delete_user/<int:id>', methods=['GET', 'POST'])
 def delete_user(id):
-    connection = db_exectuor()
+    connection = db_executor()
     with connection.cursor() as cursor:
         sql = "DELETE FROM tbl_user WHERE user_id=%s"
         cursor.execute(sql, (id,))
@@ -56,4 +56,4 @@ def delete_user(id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
